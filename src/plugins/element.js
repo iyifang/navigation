@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import 'element-ui/lib/theme-chalk/index.css'
-import { Button, Form, Input, FormItem, Message, Container, Header, Aside, Dropdown,DropdownMenu, DropdownItem } from 'element-ui'
+import { Button, Form, Input, FormItem, Message, Container, Header, Aside, Main, Dropdown, DropdownMenu, DropdownItem } from 'element-ui'
 
 Vue.use(Button)
   .use(Form)
@@ -9,6 +9,7 @@ Vue.use(Button)
   .use(Container)
   .use(Header)
   .use(Aside)
+  .use(Main)
   .use(Dropdown)
   .use(DropdownMenu)
   .use(DropdownItem)

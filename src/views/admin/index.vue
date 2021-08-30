@@ -1,6 +1,7 @@
 <template>
   <div id="admin">
     <h1>控制台</h1>
+    <button @click="test">模拟请求</button>
   </div>
 </template>
 
@@ -10,20 +11,17 @@ export default {
     return {};
   },
   created() {
-    this.test();
   },
   methods: {
     test() {
-      let arr = [0, 1, 2, 3, 4, 5, 6];
-      arr.some((item) => {
-        if (item === 3) {
-          return true;
-        }
-      });
+      console.log(process.env)
     },
   },
 };
 </script>
 
-<style>
+<style lang='scss' scoped>
+#admin {
+  height: 100%;
+}
 </style>

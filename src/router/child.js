@@ -8,5 +8,5 @@ export default [
     path: '/echars',
     name: 'echars',
     component: () => import(/* webpackChunkName: "echars" */ '../views/echars/index.vue')
-  },
+  }
 ]

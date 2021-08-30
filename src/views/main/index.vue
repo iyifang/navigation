@@ -6,7 +6,7 @@
       <div class="right">
         <el-dropdown @command="handleCommand">
           <span class="el-dropdown-link">
-            <span class="user_name">{{userName}}</span>
+            <span class="user_name">{{ userName }}</span>
             <img src="../../assets/mq.gif" alt="" class="head" />
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -20,7 +20,11 @@
     <el-container>
       <!-- 侧边栏 -->
       <el-aside width="200px">Aside</el-aside>
-      <router-view />
+      <el-container>
+        <el-main>
+          <router-view />
+        </el-main>
+      </el-container>
     </el-container>
   </el-container>
 </template>
@@ -48,6 +52,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// 头部
 .el-header {
   box-shadow: 0px 2px 3px 0px #ecf5ff;
   display: flex;
@@ -57,12 +62,11 @@ export default {
       line-height: 60px;
       height: 60px;
 
-      
-    .user_name{
-      font-size: 1rem; 
-      color: skyblue;
-      margin-right:1rem;
-    }
+      .user_name {
+        font-size: 1rem;
+        color: skyblue;
+        margin-right: 1rem;
+      }
       .head {
         vertical-align: middle;
         border-radius: 50%;
@@ -70,6 +74,15 @@ export default {
         height: 3rem;
       }
     }
+  }
+}
+// 主体
+.el-container {
+  height: 100%;
+
+  .el-main {
+    height: 100%;
+    background-color: skyblue;
   }
 }
 </style>
