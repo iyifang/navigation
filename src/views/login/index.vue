@@ -33,95 +33,96 @@
       </el-form>
     </div>
 
-    <!-- 动态背景 -->
+    <!-- 背景 -->
+    <img v-if="bgType" src="@/assets/login_bg.jpg" class="bg_img" />
     <video
-      src="../../assets/video/bg_gif.mp4"
+      src="@/assets/video/bg_gif.mp4"
       autoplay
       muted
       loop
       class="video"
+      v-else
     ></video>
   </div>
 </template>
 
 <script>
-import { setUser, getUser } from '../../utils/function'
+import { setUser, getUser } from "../../utils/function";
 export default {
-  data () {
+  data() {
     return {
+      bgType: true,
       ruleForm: {
-        account: 'admin',
-        password: '123456'
+        account: "admin",
+        password: "123456",
       },
       loading: false,
       rules: {
         account: [
-          { required: true, message: '请输入账号', trigger: 'blur' },
+          { required: true, message: "请输入账号", trigger: "blur" },
           {
             min: 5,
             max: 12,
-            message: '长度在 6 到 12 个字符',
-            trigger: 'blur'
-          }
+            message: "长度在 6 到 12 个字符",
+            trigger: "blur",
+          },
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
+          { required: true, message: "请输入密码", trigger: "blur" },
           {
             min: 6,
             max: 18,
-            message: '长度在 6 到 18 个字符',
-            trigger: 'blur'
-          }
-        ]
-      }
-    }
+            message: "长度在 6 到 18 个字符",
+            trigger: "blur",
+          },
+        ],
+      },
+    };
   },
-  created () {
-    console.log(1)
-  },
+  created() {},
   methods: {
     // 登录
-    submitForm (formName) {
-      this.loading = true
-      const that = this
+    submitForm(formName) {
+      this.loading = true;
+      const that = this;
       this.$refs[formName].validate((valid) => {
         if (
           valid &&
-          this.ruleForm.account == 'admin' &&
-          this.ruleForm.password == '123456'
+          this.ruleForm.account == "admin" &&
+          this.ruleForm.password == "123456"
         ) {
           setTimeout(() => {
-            that.loading = false
-            setUser('userinfo', that.ruleForm)
+            that.loading = false;
+            setUser("userinfo", that.ruleForm);
             that.$router.push({
-              path: '/main'
-            })
-            const username = getUser('userinfo').account
+              path: "/main",
+            });
+            const username = getUser("userinfo").account;
             this.$message({
               showClose: true,
-              message: '欢迎  ' + username,
-              type: 'success'
-            })
-          }, 1000)
+              message: "欢迎  " + username,
+              type: "success",
+            });
+          }, 1000);
         } else {
           setTimeout(() => {
-            that.loading = false
+            that.loading = false;
             this.$message({
               showClose: true,
-              message: '登录失败了哦亲！',
-              type: 'warning'
-            })
-          }, 1000)
-          return false
+              message: "登录失败了哦亲！",
+              type: "warning",
+            });
+          }, 1000);
+          return false;
         }
-      })
+      });
     },
     // 重置
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
-    }
-  }
-}
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -140,7 +141,7 @@ export default {
     transform: translate(-50%, -50%);
     background-color: #ffffff5c;
     z-index: 2;
-    width: 25%;
+    width: 30%;
     height: auto;
     padding: 20px;
 
@@ -191,6 +192,12 @@ export default {
     z-index: 1;
     width: 100%;
     height: 100%;
+  }
+
+  .bg_img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 </style>>
