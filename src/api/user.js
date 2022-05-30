@@ -4,7 +4,7 @@
  * @Autor: yifang
  * @Date: 2022-05-29 15:07:16
  * @LastEditors: yifang
- * @LastEditTime: 2022-05-29 18:42:09
+ * @LastEditTime: 2022-05-30 23:22:18
  * @Author: laptop-fpejg53f
  */
 import request from '@/utils/request'
@@ -20,6 +20,14 @@ export function login (data) {
 export function getInfo(token) {
   return request({
     url: '/navigation/user/info',
+    method: 'get',
+    params: { token }
+  })
+}
+
+export function test(token) {
+  return request({
+    url: '/test',
     method: 'get',
     params: { token }
   })

@@ -39,7 +39,7 @@ const constanRoutes = [
   },
   {
     path: '/login',
-    component: () => { '@/views/login/index' },
+    component: () => import('@/views/login/index'),
     hidden: true
   },
   {
