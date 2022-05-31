@@ -4,11 +4,11 @@
  * @Autor: yifang
  * @Date: 2022-05-29 15:06:43
  * @LastEditors: yifang
- * @LastEditTime: 2022-05-29 18:33:31
+ * @LastEditTime: 2022-06-01 00:37:18
  * @Author: laptop-fpejg53f
  */
 import { login, logout, getInfo } from '@/api/user'
-import { getToken, setToken } from '@/utils/auth'
+import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const state = {
   token: getToken(),
@@ -42,13 +42,14 @@ const actions = {
   login ({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
+      // login({ username: username.trim(), password: password }).then(response => {
+      login().then(res => {
+        const { data } = res
+        commit('SET_TOKEN', data)
+        setToken(data)
         resolve()
       }).catch(error => {
-        rejuc(error)
+        reject(error)
       })
     })
   },

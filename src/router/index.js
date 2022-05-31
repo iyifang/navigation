@@ -1,31 +1,23 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/login'
-import child from './child'
 import Layout from '@/layout'
 
 Vue.use(VueRouter)
 
-const routes = [
+const constanRoutes = [
   {
     path: '/',
-    component: Login
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index'),
+        name: 'Dashboard',
+        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+      }
+    ]
   },
-  {
-    path: '/login',
-    name: 'login',
-    component: Login
-  },
-  {
-    path: '/main',
-    name: 'main',
-    component: () => import(/* webpackChunkName: "about" */ '../views/main/index.vue'),
-    redirect: '/admin',
-    children: child,
-  }
-]
-
-const constanRoutes = [
   {
     path: '/redirect',
     component: Layout,
@@ -43,8 +35,8 @@ const constanRoutes = [
     hidden: true
   },
   {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/auth-redirect'),
+    path: '/404',
+    component: () => import('@/views/error-page/404'),
     hidden: true
   }
 ]

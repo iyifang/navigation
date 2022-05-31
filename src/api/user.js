@@ -4,15 +4,15 @@
  * @Autor: yifang
  * @Date: 2022-05-29 15:07:16
  * @LastEditors: yifang
- * @LastEditTime: 2022-05-30 23:22:18
+ * @LastEditTime: 2022-06-01 00:33:59
  * @Author: laptop-fpejg53f
  */
 import request from '@/utils/request'
 
 export function login (data) {
   return request({
-    url: '/navigation/user/login',
-    method: 'post',
+    url: '/test',
+    method: 'get',
     data
   })
 }

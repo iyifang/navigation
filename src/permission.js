@@ -17,6 +17,7 @@ router.beforeEach(async (to, from, next) => {
   // 设置标题
   document.title = getPageTitle(to.meta.title)
   const hasToken = getToken()
+  console.log('-----',hasToken);
 
   if (hasToken)
   {
@@ -59,7 +60,7 @@ router.beforeEach(async (to, from, next) => {
       next()
     } else
     {
-      console.log(123123);
+      console.log(hasToken);
       next(`/login?redirect=${to.path}`)
       NProgress.done()
     }

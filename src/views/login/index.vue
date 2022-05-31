@@ -10,9 +10,9 @@
                class="demo-ruleForm"
                :hide-required-asterisk="true">
         <el-form-item label="账号"
-                      prop="account">
-          <el-input v-model="ruleForm.account"
-                    :value="ruleForm.account"></el-input>
+                      prop="username">
+          <el-input v-model="ruleForm.username"
+                    value="ruleForm.username"></el-input>
         </el-form-item>
         <el-form-item label="密码"
                       prop="password">
@@ -51,12 +51,12 @@ export default {
     return {
       bgType: true,
       ruleForm: {
-        account: "admin",
+        username: "admin",
         password: "123456",
       },
       loading: false,
       rules: {
-        account: [
+        username: [
           { required: true, message: "请输入账号", trigger: "blur" },
           {
             min: 5,
@@ -77,7 +77,7 @@ export default {
       },
     };
   },
-  created () { 
+  created () {
   },
   methods: {
     // 登录
@@ -87,22 +87,21 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (
           valid &&
-          this.ruleForm.account == "admin" &&
+          this.ruleForm.username == "admin" &&
           this.ruleForm.password == "123456"
         )
         {
+          this.$store.dispatch('user/login', this.ruleForm)
           setTimeout(() => {
             that.loading = false;
-            setUser("userinfo", that.ruleForm);
             that.$router.push({
-              path: "/main",
+              path: "/dashboard",
             });
-            const username = getUser("userinfo").account;
-            this.$message({
+            /* this.$message({
               showClose: true,
               message: "欢迎  " + username,
               type: "success",
-            });
+            }); */
           }, 1000);
         } else
         {

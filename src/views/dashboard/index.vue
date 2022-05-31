@@ -4,14 +4,12 @@
       <div class="logo">
         <img src="@/assets/vue_logo.webp" />
       </div>
-      <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
-        @open="handleOpen"
-        @close="handleClose"
-        background-color="#34495e"
-        text-color="white"
-      >
+      <el-menu default-active="2"
+               class="el-menu-vertical-demo"
+               @open="handleOpen"
+               @close="handleClose"
+               background-color="#34495e"
+               text-color="white">
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-location"></i>
@@ -34,7 +32,8 @@
           <i class="el-icon-menu"></i>
           <span slot="title">导航二</span>
         </el-menu-item>
-        <el-menu-item index="3" disabled>
+        <el-menu-item index="3"
+                      disabled>
           <i class="el-icon-document"></i>
           <span slot="title">导航三</span>
         </el-menu-item>
@@ -47,7 +46,8 @@
     <el-container>
       <el-header>
         <div class="left">
-          <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
+          <el-radio-group v-model="isCollapse"
+                          style="margin-bottom: 20px">
             <el-radio-button :label="false">展开</el-radio-button>
             <el-radio-button :label="true">收起</el-radio-button>
           </el-radio-group>
@@ -56,7 +56,9 @@
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
               <span class="user_name">{{ userName }}</span>
-              <img src="../../assets/mq.gif" alt="" class="head" />
+              <img src="../../assets/mq.gif"
+                   alt=""
+                   class="head" />
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="1">退出登录</el-dropdown-item>
@@ -66,7 +68,9 @@
           </el-dropdown>
         </div>
       </el-header>
-      <el-main> <router-view /> </el-main>
+      <el-main>
+        <router-view />
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -74,27 +78,28 @@
 <script>
 import { getUser, removeAll } from "../../utils/function";
 export default {
-  data() {
+  data () {
     return {
       userName: "",
       isCollapse: false
     };
   },
-  created() {
+  created () {
     this.userName = getUser("userinfo").account;
   },
   methods: {
-    handleCommand(command) {
-      if (command == 1) {
+    handleCommand (command) {
+      if (command == 1)
+      {
         removeAll();
         this.$router.push("/");
       }
     },
 
-    handleOpen(key, keyPath) {
+    handleOpen (key, keyPath) {
       console.log(key, keyPath);
     },
-    handleClose(key, keyPath) {
+    handleClose (key, keyPath) {
       console.log(key, keyPath);
     },
   },

@@ -5,7 +5,7 @@ const title = defaultSettings.title || 'navigation_v2'
 export default function getPageTitle (pageTitle) {
   if (pageTitle)
   {
-    return `${pageTitlt} - ${title}`
+    return `${pageTitle} - ${title}`
   }
   return `${title}`
 } 
