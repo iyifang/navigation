@@ -32,3 +32,11 @@ export function test(token) {
     params: { token }
   })
 }
+
+export function list(params) {
+  return request({
+    url: '/list',
+    method: 'post',
+    params
+  })
+}
