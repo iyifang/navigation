@@ -1,0 +1,12 @@
+// base color
+
+// sidebar
+$menuBg: '#304156';
+$menuText: #bfcbd9;
+$menuActiveText: #409EFF;
+
+:export {
+  menuBg: $menuBg;
+  menuText: $menuText;
+  menuActiveText: $menuActiveText;
+}

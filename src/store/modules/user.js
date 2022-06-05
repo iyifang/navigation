@@ -4,10 +4,10 @@
  * @Autor: yifang
  * @Date: 2022-05-29 15:06:43
  * @LastEditors: yifang
- * @LastEditTime: 2022-06-01 00:37:18
+ * @LastEditTime: 2022-06-03 11:00:10
  * @Author: laptop-fpejg53f
  */
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const state = {
@@ -42,12 +42,15 @@ const actions = {
   login ({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      // login({ username: username.trim(), password: password }).then(response => {
-      login().then(res => {
-        const { data } = res
-        commit('SET_TOKEN', data)
-        setToken(data)
-        resolve()
+      let params = {
+        username: username.trim(),
+        password: password
+      }
+      login(params).then(res => {
+        const { Data } = res
+        commit('SET_TOKEN', Data.user.token)
+        setToken(Data.user.token)
+        resolve(res)
       }).catch(error => {
         reject(error)
       })
@@ -58,14 +61,13 @@ const actions = {
   // 获取用户信息
   getInfo ({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getUserInfo(state.token).then(response => {
         const { data } = response
         if (!data)
         {
           reject('验证失败，请重新登录!')
         }
-        const { roles, name, avatar, introduction } = data
-
+        const { roles, name, avatar, introduction } = data.info
         // roles must be a non-empty array
         if (!roles || roles.length <= 0)
         {
@@ -76,8 +78,8 @@ const actions = {
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_INTRODUCTION', introduction)
-        resolve(data)
-      }).cathc(error => {
+        resolve(data.info)
+      }).catch(error => {
         reject(error)
       })
     })

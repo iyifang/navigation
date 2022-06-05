@@ -5,6 +5,7 @@ import store from './store'
 import './plugins/element'
 import './permission'
 
+import './icons' // icon
 
 Vue.config.productionTip = false
 

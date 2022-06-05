@@ -3,54 +3,49 @@
     <!-- 表单区 -->
     <div class="form">
       <h4>Welcome to login</h4>
-      <el-form
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="100px"
-        class="demo-ruleForm"
-        :hide-required-asterisk="true"
-      >
-        <el-form-item label="账号" prop="username">
-          <el-input
-            v-model="ruleForm.username"
-            value="ruleForm.username"
-          ></el-input>
+      <el-form :model="ruleForm"
+               :rules="rules"
+               ref="ruleForm"
+               label-width="100px"
+               class="demo-ruleForm"
+               :hide-required-asterisk="true">
+        <el-form-item label="账号"
+                      prop="username">
+          <el-input v-model="ruleForm.username"
+                    value="ruleForm.username"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="ruleForm.password" show-password></el-input>
+        <el-form-item label="密码"
+                      prop="password">
+          <el-input v-model="ruleForm.password"
+                    show-password></el-input>
         </el-form-item>
         <el-form-item class="end_item">
-          <el-button
-            type="primary"
-            class="w5"
-            :loading="loading"
-            @click="submitForm('ruleForm')"
-            >立即登录</el-button
-          >
-          <el-button @click="testA('ruleForm')" class="w3">重置</el-button>
+          <el-button type="primary"
+                     class="w5"
+                     :loading="loading"
+                     @click="submitForm('ruleForm')">立即登录</el-button>
         </el-form-item>
       </el-form>
     </div>
 
     <!-- 背景 -->
-    <img v-if="bgType" src="@/assets/login_bg.jpg" class="bg_img" />
-    <video
-      src="@/assets/video/bg_gif.mp4"
-      autoplay
-      muted
-      loop
-      class="video"
-      v-else
-    ></video>
+    <img v-if="bgType"
+         src="@/assets/login_bg.jpg"
+         class="bg_img" />
+    <video src="@/assets/video/bg_gif.mp4"
+           autoplay
+           muted
+           loop
+           class="video"
+           v-else></video>
   </div>
 </template>
 
 <script>
 import { setUser, getUser } from "@/utils/function";
-import { test,list } from "@/api/user";
+import { test, list } from "@/api/user";
 export default {
-  data() {
+  data () {
     return {
       bgType: true,
       ruleForm: {
@@ -62,9 +57,9 @@ export default {
         username: [
           { required: true, message: "请输入账号", trigger: "blur" },
           {
-            min: 5,
+            min: 4,
             max: 12,
-            message: "长度在 6 到 12 个字符",
+            message: "长度在 4 到 12 个字符",
             trigger: "blur",
           },
         ],
@@ -80,31 +75,33 @@ export default {
       },
     };
   },
-  created() {},
+  created () { },
   methods: {
     // 登录
-    submitForm(formName) {
+    submitForm (formName) {
       this.loading = true;
       const that = this;
-      this.$refs[formName].validate((valid) => {
-        if (
-          valid &&
-          this.ruleForm.username == "admin" &&
-          this.ruleForm.password == "123456"
-        ) {
-          this.$store.dispatch("user/login", this.ruleForm);
-          setTimeout(() => {
-            that.loading = false;
-            that.$router.push({
-              path: "/dashboard",
-            });
-            /* this.$message({
-              showClose: true,
-              message: "欢迎  " + username,
-              type: "success",
-            }); */
-          }, 1000);
-        } else {
+      this.$refs[formName].validate(async (valid) => {
+        if (valid)
+        {
+          let res = await this.$store.dispatch("user/login", this.ruleForm);
+          let { Data, code } = res
+          if (code == 200)
+          {
+            setTimeout(() => {
+              that.loading = false;
+              that.$router.push({
+                path: "/dashboard",
+              });
+              this.$message({
+                showClose: true,
+                message: "欢迎  " + Data.user.name,
+                type: "success",
+              });
+            }, 1000);
+          }
+        } else
+        {
           setTimeout(() => {
             that.loading = false;
             this.$message({
@@ -118,18 +115,8 @@ export default {
       });
     },
     // 重置
-    resetForm(formName) {
+    resetForm (formName) {
       this.$refs[formName].resetFields();
-    },
-
-    testA() {
-      let params = {
-        page: 1,
-        pageSize: 10,
-      };
-      list(params).then((res) => {
-        console.log(res);
-      });
     },
   },
 };
@@ -153,6 +140,7 @@ export default {
     z-index: 2;
     width: 30%;
     height: auto;
+    min-width: 260px;
     padding: 20px;
 
     h4 {
@@ -183,10 +171,8 @@ export default {
         .el-form-item__content {
           display: flex;
           .w5 {
-            width: 50%;
-          }
-          .w3 {
-            width: 30%;
+            background-color: skyblue;
+            width: 100%;
           }
         }
       }

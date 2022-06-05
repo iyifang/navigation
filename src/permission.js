@@ -17,7 +17,6 @@ router.beforeEach(async (to, from, next) => {
   // 设置标题
   document.title = getPageTitle(to.meta.title)
   const hasToken = getToken()
-  console.log('-----',hasToken);
 
   if (hasToken)
   {
@@ -27,7 +26,6 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done()
     } else
     {
-
       const hasRoles = store.getters.roles && store.getters.roles.length > 0
       if (hasRoles)
       {
@@ -36,10 +34,23 @@ router.beforeEach(async (to, from, next) => {
       {
         try
         {
+          // 获取角色权限
           const { roles } = await store.dispatch('user/getInfo')
           // 获取角色路由
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
+          // 添加路由
+          for (let i = 0, length = accessRoutes.length; i < length; i += 1)
+          {
+            const element = accessRoutes[i]
+            router.addRoute(element)
+          }
 
+          /* 已弃置 */
+          // router.addRoute(accessRoutes)
+
+          /*  */
+          // next({ ...to, replace: true })
+          router.push({ path: '/' }, () => { })
         } catch (error)
         {
           // 删除令牌，跳转登录页
@@ -56,11 +67,10 @@ router.beforeEach(async (to, from, next) => {
     // 如果没有令牌
     if (whiteList.indexOf(to.path) !== -1)
     {
-    // 白名单直接进入
+      // 白名单直接进入
       next()
     } else
     {
-      console.log(hasToken);
       next(`/login?redirect=${to.path}`)
       NProgress.done()
     }

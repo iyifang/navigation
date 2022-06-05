@@ -1,24 +1,14 @@
 # navigation
 
-## Project setup
-```
-npm install
-```
+# 开发日志
+## 06-05
+### 面包屑完成
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
+# 未开放模块：
+## 面包屑右侧菜单
+## logo
+## 右侧设置功能
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+

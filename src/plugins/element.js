@@ -19,7 +19,10 @@ import {
   Footer,
   Submenu,
   RadioGroup,
-  RadioButton
+  RadioButton,
+  Scrollbar,
+  Breadcrumb,
+  BreadcrumbItem,
 
 } from 'element-ui'
 
@@ -41,5 +44,8 @@ Vue.use(Button)
   .use(Footer)
   .use(RadioGroup)
   .use(RadioButton)
+  .use(Scrollbar)
+  .use(Breadcrumb)
+  .use(BreadcrumbItem)
 Vue.prototype.$message = Message
 

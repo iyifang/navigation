@@ -4,7 +4,7 @@
  * @Autor: yifang
  * @Date: 2022-05-29 16:29:29
  * @LastEditors: yifang
- * @LastEditTime: 2022-05-29 17:20:08
+ * @LastEditTime: 2022-06-05 13:59:50
  * @Author: laptop-fpejg53f
  */
 
@@ -23,6 +23,7 @@ export function filterAsyncRoutes (routes, roles) {
       res.push(tmp)
     }
   })
+  return res
 }
 
 function hasPermission (roles, route) {
@@ -41,7 +42,7 @@ const state = {
 }
 
 const mutations = {
-  SET_ROUTES: (state, rutes) => {
+  SET_ROUTES: (state, routes) => {
     state.addRoutes = routes
     state.routes = constantRoutes.concat(routes)
   }
