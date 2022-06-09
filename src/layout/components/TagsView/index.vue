@@ -9,7 +9,6 @@
                    :key="tag.path"
                    :class="isActive(tag)?'active':''"
                    :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-                   tag="span"
                    class="tags-view-item"
                    @click.middle.native="!isAffix(tag)?closeSelectedTag(tag):''"
                    @contextmenu.prevent.native="openMenu(tag,$event)">
@@ -50,7 +49,29 @@ export default {
   computed: {
     visitedViews () {
       return this.$store.state.tagsView.visitedViews
+    },
+    routes(){
+      return this.$store.state.permission.routes
     }
+  },
+  watch: {
+    $route () {
+      this.addTags()
+      this.moveToCurrentTag()
+    },
+    visible (value) {
+      if (value)
+      {
+        document.body.addEventListener('click', this.closeMenu)
+      } else
+      {
+        document.body.removeEventListener('click', this.closeMenu)
+      }
+    }
+  },
+  mounted () {
+    this.initTags()
+    this.addTags()
   },
   methods: {
     isActive (route) {
@@ -209,6 +230,7 @@ export default {
   border-bottom: 1px solid #d8dce5;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
   .tags-view-wrapper {
+    text-align: left;
     .tags-view-item {
       display: inline-block;
       position: relative;

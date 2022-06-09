@@ -4,11 +4,11 @@
     <div v-if="device==='mobile'&&sidebar.opened"
          class="drawer-bg"
          @click="handleClickOutside" />
-    <Sidebar class="sidebar-container" />
+    <sidebar class="sidebar-container" />
     <div class="main-container"
          :class="{hasTageView:needTagsView}">
       <div :class="{'fixed-header': fixedHeader}">
-        <Navber />
+        <navber />
         <tags-view v-if="needTagsView" />
       </div>
       <app-main />

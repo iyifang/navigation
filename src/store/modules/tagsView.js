@@ -4,7 +4,7 @@
  * @Autor: yifang
  * @Date: 2022-06-07 22:45:49
  * @LastEditors: yifang
- * @LastEditTime: 2022-06-08 23:48:42
+ * @LastEditTime: 2022-06-10 00:02:50
  * @Author: laptop-fpejg53f
  */
 const state = {
@@ -28,7 +28,7 @@ const mutations = {
       state.cachedViews.push(view.name)
     }
   },
-  DEL_VISTED_VIEW: (state, view) => {
+  DEL_VISITED_VIEW: (state, view) => {
     // 
     for (const [i, v] of state.visitedViews.entries())
     {
@@ -39,7 +39,7 @@ const mutations = {
       }
     }
   },
-  DELCACHED_VIEW: (state, view) => {
+  DEL_CACHED_VIEW: (state, view) => {
     const index = state.cachedViews.indexOf(view.name)
     index > -1 && state.cachedViews.splice(index, 1)
   },
@@ -104,13 +104,13 @@ const actions = {
     })
   },
   delVisitedView ({ commit, state }, view) {
-    return Promise(resolve => {
-      commit('DEL_VISTED_VIEW', view)
+    return new Promise(resolve => {
+      commit('DEL_VISITED_VIEW', view)
       resolve([...state.visitedViews])
     })
   },
   delCachedView ({ commit, state }, view) {
-    return Promise(resolve => {
+    return new Promise(resolve => {
       commit('DEL_CACHED_VIEW', view)
       resolve([...state.cachedViews])
     })
@@ -167,6 +167,7 @@ const actions = {
 }
 
 export default {
+  namespaced: true,
   state,
   mutations,
   actions
