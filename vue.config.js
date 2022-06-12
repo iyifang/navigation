@@ -7,7 +7,7 @@ const port = process.env.port || process.env.npm_config_port || 9527 // dev port
 module.exports = {
   lintOnSave: false, // 关闭语法检查
   // 基本路径,相对路径
-  publicPath: './',
+  publicPath: '/',
   // 输出文件目录
   outputDir: 'dist',
   assetsDir: 'static',
@@ -55,5 +55,31 @@ module.exports = {
         symbolId: 'icon-[name]'
       })
       .end()
+    config
+      .optimization.splitChunks({
+        chunks: 'all',
+        cacheGroups: {
+          libs: {
+            name: 'chunk-libs',
+            test: /[\\/]node_modules[\\/]/,
+            priority: 10,
+            chunks: 'initial' // only package third parties that are initially dependent
+          },
+          elementUI: {
+            name: 'chunk-elementUI', // split elementUI into a single package
+            priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+            test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+          },
+          commons: {
+            name: 'chunk-commons',
+            test: resolve('src/components'), // can customize your rules
+            minChunks: 3, //  minimum common number
+            priority: 5,
+            reuseExistingChunk: true
+          }
+        }
+      })
+    // https:// webpack.js.org/configuration/optimization/#optimizationruntimechunk
+    config.optimization.runtimeChunk('single')
   }
 }

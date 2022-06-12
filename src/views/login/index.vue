@@ -47,7 +47,7 @@ import { test, list } from "@/api/user";
 export default {
   data () {
     return {
-      bgType: true,
+      bgType: false,
       ruleForm: {
         username: "admin",
         password: "123456",

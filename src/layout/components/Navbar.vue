@@ -7,6 +7,23 @@
     <breadcrumb id="breadcrumb-container"
                 class="breadcrumb-container" />
     <!-- 右侧用户菜单未开发 -->
+    <div class="right-menu">
+      <template v-if="device!=='mobile'">
+        <screenfull id="screenfull"
+                    class="right-menu-item hover-effect" />
+      </template>
+      <el-dropdown class="avatar-container right-menu-item hover-effect"
+                   trigger="click">
+        <div class="avatar-wrapper">
+          <img src="@/assets/mq.gif"
+               class="user-avatar">
+          <i class="el-icon-caret-bottom"></i>
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item @click.native="logout">退出登录</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -14,19 +31,26 @@
 import { mapGetters } from 'vuex'
 import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
+import Screenfull from '@/components/Screenfull'
 export default {
   components: {
     Hamburger,
-    Breadcrumb
+    Breadcrumb,
+    Screenfull
   },
   computed: {
     ...mapGetters([
-      'sidebar'
+      'sidebar',
+      'device'
     ])
   },
   methods: {
     toggleSideBar () {
       this.$store.dispatch('app/toggleSideBar')
+    },
+    async logout () {
+      await this.$store.dispatch('user/logout')
+      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     }
   }
 }

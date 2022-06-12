@@ -23,7 +23,8 @@ import {
   Scrollbar,
   Breadcrumb,
   BreadcrumbItem,
-
+  Select,
+  Option
 } from 'element-ui'
 
 Vue.use(Button)
@@ -47,5 +48,7 @@ Vue.use(Button)
   .use(Scrollbar)
   .use(Breadcrumb)
   .use(BreadcrumbItem)
+  .use(Select)
+  .use(Option)
 Vue.prototype.$message = Message
 

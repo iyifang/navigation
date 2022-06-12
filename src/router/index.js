@@ -56,7 +56,7 @@ export const asyncRoutes = [
     children: [
       {
         path: 'page',
-        component: () => import('@/views/permission/page'),
+        component: () => import('../views/permission/page'),
         name: 'PagePermission',
         meta: {
           title: 'Page Permission',
@@ -105,10 +105,22 @@ export const asyncRoutes = [
     activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
   }
  */
-const router = new VueRouter({
+/* const router = new VueRouter({
   scrollBehavior: () => ({ y: 0 }),
   mode: 'history',
   routes: constantRoutes
+}) */
+
+const createRouter = () => new VueRouter({
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRoutes
 })
+
+const router = createRouter()
+
+export function resetRouter () {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher
+}
 
 export default router

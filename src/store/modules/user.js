@@ -4,11 +4,12 @@
  * @Autor: yifang
  * @Date: 2022-05-29 15:06:43
  * @LastEditors: yifang
- * @LastEditTime: 2022-06-03 11:00:10
+ * @LastEditTime: 2022-06-12 21:13:56
  * @Author: laptop-fpejg53f
  */
 import { login, logout, getUserInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import router, { resetRouter } from '@/router'
 
 const state = {
   token: getToken(),
@@ -86,7 +87,20 @@ const actions = {
   },
 
   logout ({ commit, state, dispatch }) {
+    return new Promise((resolve, reject) => {
+      logout(state.token).then(() => {
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
+        removeToken()
 
+        resetRouter()
+
+        dispatch('tagsView/delAllViews', null, { root: true })
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
   },
 
   resetToken ({ commit }) {
