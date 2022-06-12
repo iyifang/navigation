@@ -86,6 +86,18 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/guide',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/guide/index'),
+        name: 'Guide',
+        meta: { title: 'Guide', icon: 'guide', noCache: true }
+      }
+    ]
+  },
 ]
 
 /**
@@ -105,11 +117,6 @@ export const asyncRoutes = [
     activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
   }
  */
-/* const router = new VueRouter({
-  scrollBehavior: () => ({ y: 0 }),
-  mode: 'history',
-  routes: constantRoutes
-}) */
 
 const createRouter = () => new VueRouter({
   scrollBehavior: () => ({ y: 0 }),
