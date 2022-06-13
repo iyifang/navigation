@@ -24,7 +24,8 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   Select,
-  Option
+  Option,
+  Tooltip
 } from 'element-ui'
 
 Vue.use(Button)
@@ -50,5 +51,6 @@ Vue.use(Button)
   .use(BreadcrumbItem)
   .use(Select)
   .use(Option)
+  .use(Tooltip)
 Vue.prototype.$message = Message
 

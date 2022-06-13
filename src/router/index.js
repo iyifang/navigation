@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from '@/layout'
 
+// 分模块路由
+import componentsRouter from './components'
+
 Vue.use(VueRouter)
 
 export const constantRoutes = [
@@ -98,6 +101,7 @@ export const asyncRoutes = [
       }
     ]
   },
+  componentsRouter
 ]
 
 /**
